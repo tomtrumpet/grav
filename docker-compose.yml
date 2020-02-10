@@ -1,7 +1,8 @@
 version: '2'
 services:
   site:
-    image: evns/grav
+    container_name: grav
+    image: grav
     restart: always
     ports:
       - "80:80"
@@ -9,14 +10,14 @@ services:
     environment:
       - ADMIN_USER=admin
       - ADMIN_PASSWORD=Pa55word
-      - ADMIN_EMAIL=admin@example.com
+      - ADMIN_EMAIL=admin@adventureinliving.co.uk
       - ADMIN_PERMISSIONS=b
       - ADMIN_FULLNAME=Admin
       - ADMIN_TITLE=SiteAdmin
-      - DOMAIN=example.com    # set to your root/apex domain
-      - GENERATE_CERTS=false  # set to true to automatically setup trusted ssl with let's encrypt
+      - DOMAIN=adventureinliving.co.uk
+      - GENERATE_CERTS=false
     volumes:
-      - backup:/var/www/grav-admin/
+      - backup:/var/www/grav-admin
 volumes:
   backup:
     external: false

@@ -1,11 +1,17 @@
-FROM nginx:1.11.9
+FROM nginx:1.17.8
 
 # Desired version of grav
-ARG GRAV_VERSION=1.1.16
+ARG GRAV_VERSION=1.6.20
 
 # Install dependencies
-RUN apt-get update && \
-    apt-get install -y sudo wget vim unzip php5 php5-curl php5-gd php-pclzip php5-fpm
+RUN apt-get -y update
+RUN apt -y install -f ca-certificates apt-transport-https wget
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+RUN echo "deb https://packages.sury.org/php/ buster main" | tee /etc/apt/sources.list.d/php.list
+
+RUN apt-get -y update && \
+    apt-get -y install sudo wget vim unzip php7.2 php7.2-curl php7.2-gd php-pclzip php7.2-fpm php7.2-zip php7.2-xml php7.2-mbstring gnupg2
+
 ADD https://github.com/krallin/tini/releases/download/v0.13.2/tini /usr/local/bin/tini
 RUN chmod +x /usr/local/bin/tini
 
@@ -28,7 +34,7 @@ USER root
 RUN echo 'deb http://ppa.launchpad.net/hlandau/rhea/ubuntu xenial main' > /etc/apt/sources.list.d/rhea.list \
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9862409EF124EC763B84972FF5AC9651EDB58DFA \
     && apt-get update \
-    && apt-get install acmetool
+    && apt-get install -y acmetool
 
 # Configure nginx with grav
 WORKDIR grav-admin

@@ -46,7 +46,7 @@ function configure_nginx() {
 
             # Generate Let's Encrypt certs
             echo "[ INFO ]  > Running acmetool (Let's Encrypt) quickstart"
-            acmetool quickstart &> /dev/null
+            acmetool quickstart
 
             if [ -e "/var/lib/acme/live/${DOMAIN}/privkey" ]; then
                 echo "[ INFO ]  > Certs for ${DOMAIN} already exist.  Not re-requesting."
@@ -73,7 +73,7 @@ function configure_nginx() {
 
 function start_services() {
     echo "[ INFO ] Starting nginx"
-    bash -c 'php5-fpm -D; nginx -g "daemon off;"'
+    bash -c 'service php7.2-fpm start; nginx -g "daemon off;"'
 }
 
 
