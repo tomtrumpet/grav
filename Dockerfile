@@ -1,9 +1,7 @@
 FROM nginx:1.17.8
 
-# Desired version of grav
 ARG GRAV_VERSION=1.6.20
 
-# Install dependencies
 RUN apt-get -y update
 RUN apt -y install -f ca-certificates apt-transport-https wget
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg

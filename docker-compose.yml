@@ -15,7 +15,6 @@ services:
       - ADMIN_FULLNAME=Admin
       - ADMIN_TITLE=SiteAdmin
       - DOMAIN=adventureinliving.co.uk
-      - GENERATE_CERTS=false
     volumes:
       - backup:/var/www/grav-admin
 volumes:
